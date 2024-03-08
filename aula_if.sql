@@ -37,4 +37,5 @@ begin
 end;
 
 -------------------------------------------------------------------------------
+--criar um bloco pl/sql que traga o endereço completo do cliente e o codigo do cliente 
 
