@@ -33,3 +33,12 @@ BEGIN
 FOR V_CONTADOR IN REVERSE 1..20 LOOP 	
 DBMS_OUTPUT.PUT_LINE(V_CONTADOR); END LOOP; 
 END;
+
+--ex1 lista 
+begin
+for x in (
+    select * from movimento_estoque 
+) loop
+    dbms_output.put_line('o numero do produto é:'||x.qtd_movimentacao_estoque)
+    end loop;
+    end;
