@@ -29,3 +29,38 @@ END PROCEDURE_INSERT;
 --UTILIZAÇÃO DA PROCEDURE
 CALL procedure_insert('procedure delete', sysdate, 'maria');
 SELECT * FROM TABELA_PROCEDURES
+
+--CRIA PROCEDURE
+CREATE OR REPLACE FUNCTION fun_calcula_fgts (
+    p_val NUMBER
+) RETURN NUMBER IS
+
+BEGIN
+    RETURN p_val * 0.08;
+END fun_calcula_fgts;
+
+--CRIA FUNÇÃO
+CREATE OR REPLACE PROCEDURE proc2 IS
+    v_valor NUMBER;
+BEGIN
+    v_valor := fun_calcula_fgts(5000);
+    dbms_output.put_line('o valor do fgts é:' || to_char(v_valor));
+END proc2;
+
+--TRATAMENTO DE EXCEÇÃO
+
+declare 
+minhaexe exception;
+n NUMBER := 10;
+
+BEGIN
+    FOR i IN 1..10 LOOP --range bug... (antes = &i..&n)
+        dbms_output.put_line(i * i);
+        IF i * 2 = 10 THEN
+            RAISE minhaexe;
+        END IF;
+    END LOOP;
+EXCEPTION
+    WHEN minhaexe THEN
+        raise_application_error(-20015, 'Você caiu na exeção');
+END;
